@@ -9,33 +9,6 @@
       "./temp:/temp"
     ]
   },
-  "sabnzbd": {
-    "image": "linuxserver/sabnzbd",
-    "volumes_from": [
-      "shares"
-    ],
-    "volumes": [
-      "./configs/sabnzbd:/config",
-      "./temp/downloads/sabnzbd:/downloads",
-      "./temp/incomplete/sabnzbd:/incomplete-downloads",
-      "./temp/tv:/tv",
-      "./temp/movies/release:/movies/release",
-      "./temp/movies/prerelease:/movies/prerelease"
-    ],
-    "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
-    ],
-    "ports": [
-      "8080:8080",
-      "9090:9090"
-    ],
-    "extra_hosts": [
-      "0.0.0.0:localhost"
-    ],
-    "restart": "always"
-  },
   "sonarr": {
     "image": "linuxserver/sonarr",
     "volumes_from": [
@@ -57,32 +30,7 @@
       "TZ=America/New_York"
     ],
     "links": [
-      "sabnzbd",
       "transmission"
-    ],
-    "restart": "always"
-  },
-  "sickbeard": {
-    "image": "timhaak/sickbeard",
-    "volumes_from": [
-      "shares"
-    ],
-    "volumes": [
-      "./configs/sickbeard:/config",
-      "./temp/tv:/completed",
-      "./media/tv:/tv"
-    ],
-    "links": [
-      "sabnzbd"
-    ],
-    "ports": [
-      "8081:8081"
-    ],
-    "environment": [
-      "TZ=America/New_York"
-    ],
-    "extra_hosts": [
-      "0.0.0.0:localhost"
     ],
     "restart": "always"
   },
@@ -98,39 +46,10 @@
       "./media/movies/release:/movies"
     ],
     "links": [
-      "sabnzbd",
       "transmission"
     ],
     "ports": [
       "5050:5050"
-    ],
-    "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
-    ],
-    "extra_hosts": [
-      "0.0.0.0:localhost"
-    ],
-    "restart": "always"
-  },
-  "couchpotatoprerelease": {
-    "image": "linuxserver/couchpotato",
-    "volumes_from": [
-      "shares"
-    ],
-    "links": [
-      "sabnzbd",
-      "transmission"
-    ],
-    "volumes": [
-      "./configs/couchpotato/prerelease:/config",
-      "./configs/couchpotato/prerelease/downloads:/downloads",
-      "./temp/movies/prerelease:/completed",
-      "./media/movies/prerelease:/movies"
-    ],
-    "ports": [
-      "5051:5050"
     ],
     "environment": [
       "PUID=0",
